@@ -33,128 +33,6 @@ views:
                 tap_action:
                   action: more-info
             heading: Batterij
-          - type: markdown
-            content: >
-              {% set modus =
-              states('input_select.zendure_2400_ac_modus_selecteren') %}
-
-              {% if modus == 'Standby' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> Zet de batterij volledig in
-              standby en **Opslagmodus** zal naar **Opslaan in Flash** gaan.
-              Hierdoor is het ook 0 watt op een KWH MID Meter.   
-
-
-              100% standby, de batterij gebruikt nog 0,2 kWh per dag.
-
-              {% elif modus == 'Handmatig' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> Via **Handmatig Vermogen**
-              kun je zelf aangeven wat de batterij doet. -watt voor ontladen en
-              +watt voor opladen.   
-
-              {% elif modus == 'Nul op de meter' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> Constant nul op de meter
-              behouden (-xx watt bij opladen en -xx watt bij ontladen). Je kunt
-              het opladen finetunen via **Oplaadmarge ⚙️** waarbij je aangeeft
-              hoeveel buffer/marge de batterij moet behouden tot 0 watt. Het
-              ontladen kun je finetunen via **Ontlaadmarge ⚙️** waarbij je
-              aangeeft hoeveel extra watt de batterij moet ontladen boven op nul
-              op de meter. Beide zijn handig om vaste kleine schommelingen in je
-              huisverbruik standaard te compenseren.
-
-
-              Ook kun je zelf instellen wanneer de batterij start met opladen
-              via **Opladen Starten Bij ⚙️** en wanneer hij start met ontladen
-              via **Ontladen starten bij ⚙️** 
-
-              {% elif modus == 'Dynamisch NOM' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> ⚠️ Let op: Alleen te
-              gebruiken met Nordpool sensor ⚙️. 
-
-
-              Vul als eerste in hoeveel uren je goedkoop zou willen laden per
-              dag via **Goedkoopste Periodes** dit is bijvoorbeeld 3 uur.
-              Vervolgens vul je de overige duurste uren in via **Duurste
-              Periodes** dit is bijvoorbeeld 3 uur. Wanneer nu **Goedkoopste
-              Periodes** op JA staat zal er opgeladen worden indien **Spread**
-              hoger is dan **Minimale Spread ⚙️**. Wanneer **Goedkoopste
-              Periodes** erg lang op JA staat zal de batterij pas weer gaan
-              laden wanneer de batterij ontladen is tot 90%. De batterij zal na
-              laden constant nul op de meter behouden (-xx watt bij opladen en
-              -xx watt bij ontladen).
-
-              {% elif modus == 'Dynamisch NOM (Duur)' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> ⚠️ Let op: Alleen te
-              gebruiken met Nordpool sensor ⚙️. 
-
-
-              Vul als eerste in hoeveel uren je goedkoop zou willen laden per
-              dag via **Goedkoopste Periodes** dit is bijvoorbeeld 3 uur.
-              Vervolgens vul je de overige duurste uren in via **Duurste
-              Periodes** dit is bijvoorbeeld 3 uur. Wanneer nu **Goedkoopste
-              Periodes** op JA staat zal er opgeladen worden indien **Spread**
-              hoger is dan **Minimale Spread ⚙️**. Wanneer **Goedkoopste
-              Periodes** erg lang op JA staat zal hij pas weer gaan laden
-              wanneer de batterij ontladen is tot 90%. Mocht er nog ruimte zijn
-              om meer op te laden zal de batterij dit bij teruglevering gaan
-              doen. Wanneer **Goedkoopste Periodes** op JA staat zal de batterij
-              alleen slim gaan ontladen en de rest van de tijd staat de batterij
-              in standby.
-
-              {% elif modus == 'Dynamisch Handelen' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> ⚠️ Let op: Alleen te
-              gebruiken met Nordpool sensor ⚙️. 
-
-
-              Vul als eerste in hoeveel uren je goedkoop zou willen laden per
-              dag via **Goedkoopste Periodes** dit is bijvoorbeeld 3 uur.
-              Vervolgens vul je de overige duurste uren in via **Duurste
-              Periodes** dit is bijvoorbeeld 3 uur. Wanneer nu **Goedkoopste
-              Periodes** op JA staat zal er opgeladen worden indien **Spread**
-              hoger is dan **Minimale Spread ⚙️**. Wanneer **Goedkoopste
-              Periodes** erg lang op JA staat zal de batterij pas weer gaan
-              laden wanneer de batterij ontladen is tot 90%. Wanneer **Duurste
-              Periodes** op JA staat zal de batterij op maximaal vermogen gaan
-              ontladen en de rest van de tijd staat de batterij in standby.
-
-              {% elif modus == 'Dynamisch Handelen + NOM' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> ⚠️ Let op: Alleen te
-              gebruiken met Nordpool sensor ⚙️. 
-
-
-              Vul als eerste in hoeveel uren je goedkoop zou willen laden per
-              dag via **Goedkoopste Periodes** dit is bijvoorbeeld 3 uur.
-              Vervolgens vul je de overige duurste uren in via **Duurste
-              Periodes** dit is bijvoorbeeld 3 uur. Wanneer nu **Goedkoopste
-              Periodes** op JA staat zal er opgeladen worden indien **Spread**
-              hoger is dan **Minimale Spread ⚙️**. Wanneer **Goedkoopste
-              Periodes** erg lang op JA staat zal de batterij pas weer gaan
-              laden wanneer de batterij ontladen is tot 90%. Wanneer **Duurste
-              Periodes** op JA staat zal de batterij op maximaal vermogen gaan
-              ontladen en de rest van de tijd **Nul op de meter**.
-
-              {% elif modus == 'Alleen slim ontladen' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> Identiek aan **Nul op de
-              meter**, alleen zonder opladen.
-
-              {% elif modus == 'Alleen slim opladen' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> Identiek aan **Nul op de
-              meter**, alleen zonder ontladen.
-
-              {% elif modus == 'Snel opladen' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> Snel opladen op maximaal
-              vermogen wat ingesteld staat bij **Max. Oplaadvermogen ⚙️**.
-
-              {% elif modus == 'Snel ontladen' %} <ha-alert
-              alert-type="info">Helptekst</ha-alert> Snel ontladen op maximaal
-              vermogen wat ingesteld staat bij **Max. Ontlaadvermogen ⚙️**.
-
-              {% else %} <ha-alert alert-type="warning">Helptekst</ha-alert>
-              Selecteer een modus om uitleg te zien. {% endif %}
-            text_only: true
-            visibility:
-              - condition: state
-                entity: input_boolean.help_tonen_op_dashboard
-                state: 'on'
           - type: entities
             entities:
               - entity: input_select.zendure_2400_ac_modus_selecteren
@@ -200,41 +78,10 @@ views:
                     extend_to: now
                     color: '#01a180'
                     float_precision: 0
-                    color_threshold:
-                      - value: -2000
-                        opacity: 0.5
-                      - value: -1750
-                        opacity: 0.45
-                      - value: -1500
-                        opacity: 0.4
-                      - value: -1250
-                        opacity: 0.35
-                      - value: -1000
-                        opacity: 0.3
-                      - value: -750
-                        opacity: 0.25
-                      - value: -500
-                        opacity: 0.15
-                      - value: 0
-                        opacity: 0.1
-                      - value: 500
-                        opacity: 0.15
-                      - value: 750
-                        opacity: 0.25
-                      - value: 1000
-                        opacity: 0.3
-                      - value: 1250
-                        opacity: 0.35
-                      - value: 1500
-                        opacity: 0.4
-                      - value: 1750
-                        opacity: 0.45
-                      - value: 2000
-                        opacity: 0.5
                     yaxis_id: energy
                     show:
                       in_header: false
-                      in_legend: true
+                      in_legend: false
                   - entity: sensor.p1_nom_doel
                     name: P1 (NOM Doel)
                     statistics:
@@ -243,7 +90,7 @@ views:
                       align: start
                     type: area
                     stroke_width: 0
-                    opacity: 0.4
+                    opacity: 0.6
                     extend_to: now
                     color: '#595a5f'
                     float_precision: 0
@@ -295,168 +142,21 @@ views:
                     show: true
                     floating: true
                     horizontalAlign: left
-                    offsetX: 25
+                    offsetX: 0
                     offsetY: 17
                     formatter: |
                       EVAL:function(seriesName, opts) {
                         // filter series die niet in de legenda moeten
-                        if(seriesName === "leeg" || seriesName === "P1 (NOM Doel)") return "";
+                        if(seriesName === "Batterij" || seriesName === "P1 (NOM Doel)") return "";
                         return seriesName;
                       }
                   markers:
                     size: 0
                     hover:
                       size: 0
-            visibility:
-              - condition: state
-                entity: input_select.zendure_2400_ac_modus_selecteren
-                state_not: Handmatig
-          - type: vertical-stack
-            cards:
               - type: custom:apexcharts-card
                 experimental:
                   hidden_by_default: true
-                  color_threshold: true
-                cache: true
-                update_interval: 15min
-                stacked: true
-                header:
-                  show: true
-                  show_states: true
-                  title: ''
-                graph_span: 24h
-                span:
-                  start: day
-                series:
-                  - entity: sensor.zendure_2400_ac_vermogen_aansturing
-                    name: Batterij
-                    statistics:
-                      period: 5minute
-                      type: mean
-                      align: start
-                    type: area
-                    transform: return -x;
-                    stroke_width: 2
-                    opacity: 0.2
-                    extend_to: now
-                    color: '#01a180'
-                    float_precision: 0
-                    color_threshold:
-                      - value: -2000
-                        opacity: 0.5
-                      - value: -1750
-                        opacity: 0.45
-                      - value: -1500
-                        opacity: 0.4
-                      - value: -1250
-                        opacity: 0.35
-                      - value: -1000
-                        opacity: 0.3
-                      - value: -750
-                        opacity: 0.25
-                      - value: -500
-                        opacity: 0.15
-                      - value: 0
-                        opacity: 0.1
-                      - value: 500
-                        opacity: 0.15
-                      - value: 750
-                        opacity: 0.25
-                      - value: 1000
-                        opacity: 0.3
-                      - value: 1250
-                        opacity: 0.35
-                      - value: 1500
-                        opacity: 0.4
-                      - value: 1750
-                        opacity: 0.45
-                      - value: 2000
-                        opacity: 0.5
-                    show:
-                      in_header: false
-                      in_legend: true
-                  - entity: sensor.p1_nom_doel
-                    name: P1 (NOM Doel)
-                    statistics:
-                      period: 5minute
-                      type: mean
-                      align: start
-                    type: area
-                    stroke_width: 0
-                    opacity: 0.4
-                    extend_to: now
-                    color: '#595a5f'
-                    float_precision: 0
-                    yaxis_id: energy
-                    show:
-                      in_header: false
-                      in_legend: false
-                apex_config:
-                  tooltip:
-                    x:
-                      format: HH:mm
-                      show: false
-                  xaxis:
-                    labels:
-                      show: false
-                      style:
-                        colors: grey
-                    axisTicks:
-                      show: false
-                    axisBorder:
-                      color: '#616269'
-                  yaxis:
-                    - title:
-                        text: ''
-                      decimalsInFloat: 0
-                      labels:
-                        style:
-                          colors: '#7b7c83'
-                  grid:
-                    strokeDashArray: 0
-                    borderColor: rgb(52,52,52)
-                    show: true
-                  chart:
-                    height: 204px
-                    toolbar:
-                      autoSelected: pan
-                      show: true
-                      tools:
-                        download: false
-                        zoom: true
-                        zoomin: false
-                        zoomout: false
-                        pan: true
-                    zoom:
-                      enabled: true
-                      allowMouseWheelZoom: true
-                      autoScaleYaxis: true
-                  legend:
-                    show: true
-                    floating: true
-                    horizontalAlign: left
-                    offsetX: 25
-                    offsetY: 17
-                    formatter: |
-                      EVAL:function(seriesName, opts) {
-                        // filter series die niet in de legenda moeten
-                        if(seriesName === "leeg" || seriesName === "P1 (NOM Doel)") return "";
-                        return seriesName;
-                      }
-                  markers:
-                    size: 0
-                    hover:
-                      size: 0
-            visibility:
-              - condition: state
-                entity: input_select.zendure_2400_ac_modus_selecteren
-                state: Handmatig
-          - type: vertical-stack
-            cards:
-              - type: custom:apexcharts-card
-                experimental:
-                  hidden_by_default: true
-                  color_threshold: true
                 cache: false
                 stacked: true
                 update_interval: 5sec
@@ -472,58 +172,24 @@ views:
                       func: avg
                       duration: 5sec
                     type: area
-                    invert: true
-                    offset: '-5s'
+                    transform: return -x;
                     stroke_width: 2
                     opacity: 0.2
                     extend_to: now
                     color: '#01a180'
                     float_precision: 0
-                    color_threshold:
-                      - value: -2000
-                        opacity: 0.5
-                      - value: -1750
-                        opacity: 0.45
-                      - value: -1500
-                        opacity: 0.4
-                      - value: -1250
-                        opacity: 0.35
-                      - value: -1000
-                        opacity: 0.3
-                      - value: -750
-                        opacity: 0.25
-                      - value: -500
-                        opacity: 0.15
-                      - value: 0
-                        opacity: 0.1
-                      - value: 500
-                        opacity: 0.15
-                      - value: 750
-                        opacity: 0.25
-                      - value: 1000
-                        opacity: 0.3
-                      - value: 1250
-                        opacity: 0.35
-                      - value: 1500
-                        opacity: 0.4
-                      - value: 1750
-                        opacity: 0.45
-                      - value: 2000
-                        opacity: 0.5
                     yaxis_id: energy
                     show:
                       in_header: false
-                      in_legend: true
-                      offset_in_name: false
+                      in_legend: false
                   - entity: sensor.p1_nom_doel
                     name: P1 (NOM Doel)
-                    offset: '-5s'
                     group_by:
                       func: avg
                       duration: 5sec
                     type: area
                     stroke_width: 0
-                    opacity: 0.4
+                    opacity: 0.6
                     extend_to: now
                     color: '#595a5f'
                     float_precision: 0
@@ -593,29 +259,263 @@ views:
                     strokeDashArray: 0
                     borderColor: rgb(52,52,52)
                     show: true
-                    padding:
-                      top: -10
                   chart:
                     height: 150px
                   legend:
                     show: true
                     floating: true
                     horizontalAlign: left
-                    offsetX: 25
+                    offsetX: 0
                     offsetY: 17
                     formatter: |
                       EVAL:function(seriesName, opts) {
                         // filter series die niet in de legenda moeten
-                        if(seriesName === "Leeg" || seriesName === "P1 (NOM Doel) (-5s)") return "";
+                        if(seriesName === "Batterij" || seriesName === "P1 (NOM Doel)") return "";
                         return seriesName;
                       }
                   markers:
                     size: 0
                     hover:
                       size: 0
+            visibility:
+              - condition: state
+                entity: input_select.zendure_2400_ac_modus_selecteren
+                state_not: Handmatig
+          - type: vertical-stack
+            cards:
+              - type: custom:apexcharts-card
+                experimental:
+                  hidden_by_default: true
+                cache: true
+                update_interval: 15min
+                stacked: true
+                header:
+                  show: true
+                  show_states: true
+                  title: ''
+                graph_span: 24h
+                span:
+                  start: day
+                series:
+                  - entity: sensor.zendure_2400_ac_vermogen_aansturing
+                    name: Batterij
+                    statistics:
+                      period: 5minute
+                      type: mean
+                      align: start
+                    type: area
+                    transform: return -x;
+                    stroke_width: 2
+                    opacity: 0.2
+                    extend_to: now
+                    color: '#01a180'
+                    float_precision: 0
+                    yaxis_id: energy
+                    show:
+                      in_header: false
+                      in_legend: false
+                  - entity: sensor.p1_nom_doel
+                    name: P1 (NOM Doel)
+                    statistics:
+                      period: 5minute
+                      type: mean
+                      align: start
+                    type: area
+                    stroke_width: 0
+                    opacity: 0.6
+                    extend_to: now
+                    color: '#595a5f'
+                    float_precision: 0
+                    yaxis_id: energy
+                    show:
+                      in_header: false
+                      in_legend: false
+                apex_config:
+                  tooltip:
+                    x:
+                      format: HH:mm
+                      show: false
+                  xaxis:
+                    labels:
+                      show: false
+                      style:
+                        colors: grey
+                    axisTicks:
+                      show: false
+                    axisBorder:
+                      color: '#616269'
+                  yaxis:
+                    - title:
+                        text: ''
+                      decimalsInFloat: 0
+                      labels:
+                        style:
+                          colors: '#7b7c83'
+                  grid:
+                    strokeDashArray: 0
+                    borderColor: rgb(52,52,52)
+                    show: true
+                  chart:
+                    height: 204px
+                    toolbar:
+                      show: true
+                      tools:
+                        download: false
+                        selection: false
+                        zoom: true
+                        zoomin: false
+                        zoomout: false
+                        pan: false
+                    zoom:
+                      enabled: true
+                      allowMouseWheelZoom: true
+                      autoScaleYaxis: true
+                  legend:
+                    show: true
+                    floating: true
+                    horizontalAlign: left
+                    offsetX: 0
+                    offsetY: 17
+                    formatter: |
+                      EVAL:function(seriesName, opts) {
+                        // filter series die niet in de legenda moeten
+                        if(seriesName === "Batterij" || seriesName === "P1 (NOM Doel)") return "";
+                        return seriesName;
+                      }
+                  markers:
+                    size: 0
+                    hover:
+                      size: 0
+              - type: custom:apexcharts-card
+                experimental:
+                  hidden_by_default: true
+                cache: false
+                stacked: true
+                update_interval: 5sec
+                header:
+                  show: true
+                  show_states: true
+                  title: ''
+                graph_span: 10min
+                series:
+                  - entity: sensor.zendure_2400_ac_vermogen_aansturing
+                    name: Batterij
+                    group_by:
+                      func: avg
+                      duration: 5sec
+                    type: area
+                    transform: return -x;
+                    stroke_width: 2
+                    opacity: 0.2
+                    extend_to: now
+                    color: '#01a180'
+                    float_precision: 0
+                    yaxis_id: energy
+                    show:
+                      in_header: false
+                      in_legend: false
+                  - entity: sensor.p1_nom_doel
+                    name: P1 (NOM Doel)
+                    group_by:
+                      func: avg
+                      duration: 5sec
+                    type: area
+                    stroke_width: 0
+                    opacity: 0.6
+                    extend_to: now
+                    color: '#595a5f'
+                    float_precision: 0
+                    yaxis_id: energy
+                    show:
+                      in_header: false
+                      in_legend: false
+                  - entity: input_number.zendure_2400_ac_ontladen_starten_bij
+                    name: Start ontladen
+                    type: line
+                    stroke_width: 1
+                    color: '#e4e4e7'
+                    opacity: 0.5
+                    stroke_dash: 2
+                    curve: stepline
+                    extend_to: now
+                    float_precision: 0
+                    yaxis_id: energy
+                    show:
+                      hidden_by_default: true
+                      in_header: false
+                  - entity: input_number.zendure_2400_ac_opladen_starten_bij
+                    name: Start opladen
+                    type: line
+                    stroke_width: 1
+                    color: '#e4e4e7'
+                    opacity: 0.5
+                    stroke_dash: 2
+                    curve: stepline
+                    extend_to: now
+                    float_precision: 0
+                    yaxis_id: energy
+                    show:
+                      hidden_by_default: true
+                      in_header: false
+                apex_config:
+                  toolbar:
+                    show: true
+                    tools:
+                      download: true
+                      selection: true
+                      zoom: true
+                      zoomin: true
+                      zoomout: true
+                      pan: true
+                  tooltip:
+                    x:
+                      format: HH:mm:ss
+                      show: false
+                  xaxis:
+                    labels:
+                      show: false
+                      style:
+                        colors: grey
+                    axisTicks:
+                      show: false
+                    axisBorder:
+                      color: '#616269'
+                  yaxis:
+                    - title:
+                        text: ''
+                      decimalsInFloat: 0
+                      labels:
+                        style:
+                          colors: '#7b7c83'
+                  grid:
+                    strokeDashArray: 0
+                    borderColor: rgb(52,52,52)
+                    show: true
+                  chart:
+                    height: 150px
+                  legend:
+                    show: true
+                    floating: true
+                    horizontalAlign: left
+                    offsetX: 0
+                    offsetY: 17
+                    formatter: |
+                      EVAL:function(seriesName, opts) {
+                        // filter series die niet in de legenda moeten
+                        if(seriesName === "Batterij" || seriesName === "P1 (NOM Doel)") return "";
+                        return seriesName;
+                      }
+                  markers:
+                    size: 0
+                    hover:
+                      size: 0
+            visibility:
+              - condition: state
+                entity: input_select.zendure_2400_ac_modus_selecteren
+                state: Handmatig
           - type: heading
             icon: ''
-            heading: Nul Import
+            heading: Nul import
             heading_style: title
             badges:
               - type: entity
@@ -638,10 +538,6 @@ views:
               betrekking tot het niet importeren van stroom. Elke seconde dat
               het P1-vermogen op 0 of lager staat, wordt meegeteld in het
               totaal.
-
-
-              Deze gegevens komen uit de statistics (LTS). Hierdoor loopt de
-              grafiek gemiddeld 1 uur achter.
             text_only: true
             visibility:
               - condition: state
@@ -662,8 +558,6 @@ views:
               yaxis:
                 - decimalsInFloat: 0
                   tickAmount: 4
-                  min: 0
-                  max: 24
                   labels:
                     show: true
                     style:
@@ -672,21 +566,12 @@ views:
                 x:
                   format: d/MM
                   show: false
-                'y':
-                  formatter: |
-                    EVAL:function(value) {
-                      const h = Math.floor(value);
-                      const m = Math.round((value - h) * 60);
-                      return h + "u " + m + "m";
-                    }
               grid:
                 show: true
                 borderColor: '#332f2c'
                 strokeDashArray: 0
-                padding:
-                  top: -10
               chart:
-                height: 150px
+                height: 140px
               legend:
                 show: false
                 floating: true
@@ -711,126 +596,8 @@ views:
                 color: '#e0e0e3'
                 show:
                   in_header: false
+                  extremas: max
                   in_legend: false
-      - type: grid
-        cards:
-          - type: heading
-            icon: ''
-            heading_style: title
-            heading: Aansturing
-            badges:
-              - type: entity
-                show_state: true
-                show_icon: true
-                entity: sensor.p1_aansturing_vermogen
-                name: P1
-                state_content:
-                  - name
-                  - state
-                color: '#01a180'
-                icon: mdi:home
-                tap_action:
-                  action: more-info
-          - type: entities
-            show_header_toggle: false
-            entities:
-              - entity: sensor.zendure_2400_ac_soc_limiet_status
-                name: SOC-limiet Status
-              - entity: sensor.zendure_2400_ac_indicatie_beschikbare_energie
-                name: Indicatie Beschikbare Energie
-                secondary_info: none
-              - entity: sensor.zendure_2400_ac_resterende_ontlaad_tijd
-                name: Resterende Ontlaad Tijd
-              - entity: sensor.zendure_2400_ac_modus
-                name: Modus
-                secondary_info: none
-              - entity: sensor.zendure_2400_ac_ingesteld_ontlaadvermogen
-                name: Ingesteld Ontlaadvermogen
-                icon: ''
-              - entity: sensor.zendure_2400_ac_ingesteld_oplaadvermogen
-                name: Ingesteld Oplaadvermogen
-          - type: heading
-            icon: ''
-            heading_style: title
-            heading: Import | Export
-            badges:
-              - type: entity
-                show_state: true
-                show_icon: true
-                entity: sensor.zendure_2400_ac_rte_totaal
-                name: RTE
-                state_content:
-                  - name
-                  - state
-                color: '#01a180'
-                icon: mdi:percent
-                tap_action:
-                  action: more-info
-          - type: entities
-            entities:
-              - entity: sensor.zendure_2400_ac_energie_import
-                name: Import
-              - entity: sensor.zendure_2400_ac_energie_export
-                name: Export
-          - type: custom:apexcharts-card
-            header:
-              show: true
-              title: ''
-            graph_span: 24month
-            span:
-              start: month
-              offset: '-23month'
-            cache: false
-            apex_config:
-              yaxis:
-                - decimalsInFloat: 0
-                  tickAmount: 4
-                  labels:
-                    show: true
-                    style:
-                      colors: '#7b7c83'
-              tooltip:
-                x:
-                  format: MM-yyyy
-                  show: false
-              grid:
-                show: true
-                borderColor: '#332f2c'
-                strokeDashArray: 0
-                padding:
-                  top: -10
-              chart:
-                height: 150px
-              legend:
-                show: false
-              xaxis:
-                labels:
-                  show: false
-                axisTicks:
-                  show: false
-                axisBorder:
-                  color: '#616269'
-            series:
-              - entity: sensor.zendure_2400_ac_energie_import
-                name: Import
-                statistics:
-                  period: month
-                  type: change
-                  align: start
-                type: column
-                color: '#01a180'
-                show:
-                  in_header: false
-              - entity: sensor.zendure_2400_ac_energie_export
-                name: Export
-                statistics:
-                  period: month
-                  type: change
-                  align: start
-                type: column
-                color: '#b3e3d9'
-                show:
-                  in_header: false
       - type: grid
         cards:
           - type: heading
@@ -907,16 +674,16 @@ views:
                     show: true
                     borderColor: '#332f2c'
                     strokeDashArray: 0
-                    padding:
-                      top: -10
                   chart:
-                    height: 150px
+                    height: 140px
                     stacked: true
                     stackOnlyBar: true
                   yaxis:
                     - title:
                         text: ''
                       decimalsInFloat: 2
+                      min: 0
+                      tickAmount: 4
                       forceNiceScale: true
                       labels:
                         style:
@@ -1004,12 +771,26 @@ views:
                   - verschil_waarde
                 vertical: false
                 features_position: bottom
+          - type: tile
+            entity: input_number.dynamisch_goedkoopste_x_periode
+            name: Goedkoopste Periodes
+            hide_state: true
+            vertical: false
+            features_position: inline
+            features:
+              - type: numeric-input
+                style: buttons
+          - type: tile
+            entity: input_number.dynamisch_duurste_x_periode
+            name: Duurste Periodes
+            hide_state: true
+            vertical: false
+            features:
+              - type: numeric-input
+                style: buttons
+            features_position: inline
           - type: entities
             entities:
-              - entity: input_number.dynamisch_goedkoopste_x_periode
-                name: Goedkoopste Periodes
-              - entity: input_number.dynamisch_duurste_x_periode
-                name: Duurste Periodes
               - entity: input_text.dynamisch_handmatige_periode
                 name: Handmatige Periodes
           - type: heading
@@ -1056,16 +837,16 @@ views:
                     show: true
                     borderColor: '#332f2c'
                     strokeDashArray: 0
-                    padding:
-                      top: -10
                   chart:
-                    height: 150px
+                    height: 140px
                     stacked: true
                     stackOnlyBar: true
                   yaxis:
                     - title:
                         text: ''
                       decimalsInFloat: 2
+                      min: 0
+                      tickAmount: 4
                       forceNiceScale: true
                       labels:
                         style:
@@ -1161,12 +942,34 @@ views:
               - condition: time
                 after: '13:30:00'
                 before: '24:00:00'
+          - type: tile
+            entity: input_number.dynamisch_goedkoopste_x_periode_morgen
+            name: Goedkoopste Periodes Morgen
+            hide_state: true
+            vertical: false
+            features:
+              - type: numeric-input
+                style: buttons
+            features_position: inline
+            visibility:
+              - condition: time
+                after: '13:30:00'
+                before: '24:00:00'
+          - type: tile
+            entity: input_number.dynamisch_duurste_x_periode_morgen
+            name: Duurste Periodes Morgen
+            hide_state: true
+            vertical: false
+            features:
+              - type: numeric-input
+                style: buttons
+            features_position: inline
+            visibility:
+              - condition: time
+                after: '13:30:00'
+                before: '24:00:00'
           - type: entities
             entities:
-              - entity: input_number.dynamisch_goedkoopste_x_periode_morgen
-                name: Goedkoopste Periodes Morgen
-              - entity: input_number.dynamisch_duurste_x_periode_morgen
-                name: Duurste Periodes Morgen
               - entity: input_text.dynamisch_handmatige_periode_morgen
                 name: Handmatige Periodes Morgen
             visibility:
@@ -1177,11 +980,128 @@ views:
           - condition: state
             entity: input_boolean.dynamisch_tonen_op_dashboard
             state: 'on'
+      - type: grid
+        cards:
+          - type: heading
+            icon: ''
+            heading_style: title
+            heading: Aansturing
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.p1_aansturing_vermogen
+                name: P1
+                state_content:
+                  - name
+                  - state
+                color: '#01a180'
+                icon: mdi:transmission-tower
+                tap_action:
+                  action: more-info
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: sensor.zendure_2400_ac_soc_limiet_status
+                name: SOC-limiet Status
+              - entity: sensor.zendure_2400_ac_indicatie_beschikbare_energie
+                name: Indicatie Beschikbare Energie
+                secondary_info: none
+              - entity: sensor.zendure_2400_ac_resterende_ontlaad_tijd
+                name: Resterende Ontlaad Tijd
+              - entity: sensor.zendure_2400_ac_modus
+                name: Modus
+                secondary_info: none
+              - entity: sensor.zendure_2400_ac_ingesteld_ontlaadvermogen
+                name: Ingesteld Ontlaadvermogen
+                icon: ''
+              - entity: sensor.zendure_2400_ac_ingesteld_oplaadvermogen
+                name: Ingesteld Oplaadvermogen
+          - type: heading
+            icon: ''
+            heading_style: title
+            heading: Import/Export
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.zendure_2400_ac_rte_totaal
+                name: RTE
+                state_content:
+                  - name
+                  - state
+                color: '#01a180'
+                icon: mdi:percent
+                tap_action:
+                  action: more-info
+          - type: entities
+            entities:
+              - entity: sensor.zendure_2400_ac_energie_import
+                name: Opgeladen
+              - entity: sensor.zendure_2400_ac_energie_export
+                name: Ontladen
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: ''
+            graph_span: 24month
+            span:
+              start: month
+              offset: '-23month'
+            cache: false
+            apex_config:
+              yaxis:
+                - decimalsInFloat: 0
+                  tickAmount: 4
+                  labels:
+                    show: true
+                    style:
+                      colors: '#7b7c83'
+              tooltip:
+                x:
+                  format: MM-yyyy
+                  show: false
+              grid:
+                show: true
+                borderColor: '#332f2c'
+                strokeDashArray: 0
+              chart:
+                height: 140px
+              legend:
+                show: false
+              xaxis:
+                labels:
+                  show: false
+                axisTicks:
+                  show: false
+                axisBorder:
+                  color: '#616269'
+            series:
+              - entity: sensor.zendure_2400_ac_energie_import
+                name: Opgeladen
+                statistics:
+                  period: month
+                  type: change
+                  align: start
+                type: column
+                color: '#01a180'
+                show:
+                  in_header: false
+              - entity: sensor.zendure_2400_ac_energie_export
+                name: Ontladen
+                statistics:
+                  period: month
+                  type: change
+                  align: start
+                type: column
+                color: '#b3e3d9'
+                show:
+                  in_header: false
     cards: []
     icon: mdi:battery
     dense_section_placement: false
   - type: sections
-    max_columns: 3
+    max_columns: 4
     icon: mdi:battery-heart-variant
     path: gezondheid
     title: Gezondheid
@@ -1197,8 +1117,6 @@ views:
             entities:
               - entity: sensor.zendure_2400_ac_aantal_batterijen
                 name: Aantal Batterijen
-              - entity: sensor.zendure_2400_ac_totale_capaciteit
-                name: Totale Capaciteit
               - entity: sensor.zendure_2400_ac_signaalsterkte
                 name: Signaalsterkte
               - entity: sensor.zendure_2400_ac_error
@@ -1236,19 +1154,12 @@ views:
               de omvormer over de afgelopen 7 dagen. De groene lijn geeft de
               grens aan waarop de omvormer zijn vermogen begint terug te
               schroeven. Dit gebeurt vanaf 60 °C.
-
-
-              Deze gegevens komen uit de statistics (LTS). Hierdoor loopt de
-              grafiek gemiddeld 1 uur achter.
             text_only: true
             visibility:
               - condition: state
                 entity: input_boolean.help_tonen_op_dashboard
                 state: 'on'
           - type: custom:apexcharts-card
-            experimental:
-              hidden_by_default: true
-              color_threshold: true
             header:
               show: true
               title: ''
@@ -1263,7 +1174,7 @@ views:
                     strokeDashArray: 2
               yaxis:
                 - decimalsInFloat: 0
-                  max: 80
+                  max: 100
                   labels:
                     show: true
                     style:
@@ -1276,8 +1187,6 @@ views:
                 show: true
                 borderColor: '#332f2c'
                 strokeDashArray: 0
-                padding:
-                  top: -10
               chart:
                 height: 150px
               legend:
@@ -1304,17 +1213,6 @@ views:
                 color: '#e4e4e7'
                 show:
                   in_header: false
-                color_threshold:
-                  - value: 0
-                    opacity: 0.2
-                  - value: 30
-                    opacity: 0.35
-                  - value: 40
-                    opacity: 0.5
-                  - value: 50
-                    opacity: 0.65
-                  - value: 60
-                    opacity: 0.8
           - type: heading
             icon: ''
             heading: Relais Schakelingen
@@ -1338,17 +1236,12 @@ views:
               groene lijn geeft de grens aan waarop het aantal schakelingen als
               verhoogd wordt beschouwd. Alles onder de 100 schakelingen per dag
               is normaal op een deels bewolkte dag.
-
-
-              Deze gegevens komen uit de statistics (LTS). Hierdoor loopt de
-              grafiek gemiddeld 1 uur achter.
             text_only: true
             visibility:
               - condition: state
                 entity: input_boolean.help_tonen_op_dashboard
                 state: 'on'
           - type: custom:apexcharts-card
-            stacked: true
             header:
               show: true
               title: ''
@@ -1365,6 +1258,8 @@ views:
                     strokeDashArray: 2
               yaxis:
                 - decimalsInFloat: 0
+                  min: 0
+                  tickAmount: 4
                   labels:
                     show: true
                     style:
@@ -1377,8 +1272,6 @@ views:
                 show: true
                 borderColor: '#332f2c'
                 strokeDashArray: 0
-                padding:
-                  top: -10
               chart:
                 height: 150px
               legend:
@@ -1391,29 +1284,17 @@ views:
                 axisBorder:
                   color: '#616269'
             series:
-              - entity: sensor.zendure_2400_ac_relais_schakelingen_opladen_vandaag
-                name: Relais Schakelingen Opladen
-                transform: 'return x > 0 ? x - 1 : 0;'
+              - entity: sensor.zendure_2400_ac_relais_schakelingen_totaal_vandaag
+                name: Relais Schakelingen
                 statistics:
                   period: day
-                  type: max
-                  align: middle
+                  type: change
+                  align: start
                 type: column
                 color: '#e0e0e3'
                 show:
                   in_header: false
-                  extremas: false
-              - entity: sensor.zendure_2400_ac_relais_schakelingen_ontladen_vandaag
-                name: Relais Schakelingen Ontladen
-                statistics:
-                  period: day
-                  type: max
-                  align: middle
-                type: column
-                color: '#e0e0e3'
-                show:
-                  in_header: false
-                  extremas: false
+                  extremas: max
       - type: grid
         cards:
           - type: heading
@@ -1568,10 +1449,6 @@ views:
                 entity: input_boolean.help_tonen_op_dashboard
                 state: 'on'
           - type: custom:apexcharts-card
-            experimental:
-              hidden_by_default: true
-              color_threshold: true
-            update_interval: 5min
             header:
               show: true
               title: ''
@@ -1598,8 +1475,6 @@ views:
                 show: true
                 borderColor: '#332f2c'
                 strokeDashArray: 0
-                padding:
-                  top: -10
               chart:
                 height: 150px
               legend:
@@ -1617,31 +1492,19 @@ views:
                 stroke_width: 2
                 opacity: 0.2
                 extend_to: now
-                statistics:
-                  period: 5minute
-                  type: mean
-                  align: start
+                group_by:
+                  func: avg
+                  duration: 5min
                 type: area
                 color: '#e4e4e7'
                 show:
                   in_header: false
-                color_threshold:
-                  - value: 0
-                    opacity: 0.2
-                  - value: 20
-                    opacity: 0.3
-                  - value: 40
-                    opacity: 0.4
-                  - value: 60
-                    opacity: 0.5
-                  - value: 80
-                    opacity: 0.6
+                  extremas: max
               - entity: sensor.zendure_2400_ac_vermogen_aansturing
                 name: Import (gemiddeld)
-                statistics:
-                  period: 5minute
-                  type: mean
-                  align: start
+                group_by:
+                  func: avg
+                  duration: 5min
                 type: area
                 stroke_width: 0
                 opacity: 0
@@ -1675,10 +1538,6 @@ views:
                 entity: input_boolean.help_tonen_op_dashboard
                 state: 'on'
           - type: custom:apexcharts-card
-            experimental:
-              hidden_by_default: true
-              color_threshold: true
-            update_interval: 5min
             header:
               show: true
               title: ''
@@ -1705,8 +1564,6 @@ views:
                 show: true
                 borderColor: '#332f2c'
                 strokeDashArray: 0
-                padding:
-                  top: -10
               chart:
                 height: 150px
               legend:
@@ -1724,31 +1581,19 @@ views:
                 stroke_width: 2
                 opacity: 0.2
                 extend_to: now
-                statistics:
-                  period: 5minute
-                  type: mean
-                  align: start
+                group_by:
+                  func: avg
+                  duration: 5min
                 type: area
                 color: '#e4e4e7'
                 show:
                   in_header: false
-                color_threshold:
-                  - value: 0
-                    opacity: 0.2
-                  - value: 20
-                    opacity: 0.3
-                  - value: 40
-                    opacity: 0.4
-                  - value: 60
-                    opacity: 0.5
-                  - value: 80
-                    opacity: 0.6
+                  extremas: max
               - entity: sensor.zendure_2400_ac_vermogen_aansturing
                 name: Export (gemiddeld)
-                statistics:
-                  period: 5minute
-                  type: mean
-                  align: start
+                group_by:
+                  func: avg
+                  duration: 5min
                 type: area
                 stroke_width: 0
                 opacity: 0
@@ -1765,9 +1610,8 @@ views:
                 name: Efficientie Export
               - entity: sensor.zendure_2400_ac_efficientie_export_24u_gemiddelde
                 name: Efficientie Export (24u gemiddelde)
-    cards: []
   - type: sections
-    max_columns: 3
+    max_columns: 4
     title: Configuratie
     path: configuratie
     icon: mdi:cog
@@ -1784,18 +1628,18 @@ views:
               <ha-alert alert-type="info">Helptekst</ha-alert>Vul hier het
               IP-adres van je Zendure en van je HomeWizard P1 (lokale API moet
               aanstaan) in. Gebruik je een afwijkende P1-sensor, dan kun je deze
-              instellen via **Afwijkende P1 Sensor ⚙️**.
+              instellen via **input_text.afwijkende_p1_sensor**.
 
 
-              Hier stel je ook de **Standby Vertraging ⚙️** in. Wanneer de
-              Zendure geen actieve taak heeft, gaat hij na de ingestelde periode
+              Hier stel je ook de **standby vertraging** in. Wanneer de Zendure
+              geen actieve taak heeft, gaat hij na de ingestelde periode
               volledig in standby. Het verbruik bedraagt dan ongeveer 0,2 kWh
               per dag.
 
 
-              Wil je niet te veel gedoe neem dan in eerste instantie de **Advies
-              Instellingen ⚙️** voor het gedrag in één keer over. Pas het daarna
-              na eigen smaak aan.
+              Wil je niet te veel gedoe neem dan in eerste instantie de advies
+              instellingen voor het gedrag in één keer over. Pas het daarna na
+              eigen smaak aan.
             text_only: true
             visibility:
               - condition: state
@@ -1943,7 +1787,7 @@ views:
               - entity: input_boolean.dynamisch_tonen_op_dashboard
           - type: heading
             icon: ''
-            heading: Versiebeheer
+            heading: GitHub
             heading_style: title
             badges:
               - type: button
@@ -1953,29 +1797,17 @@ views:
                 tap_action:
                   action: navigate
                   navigation_path: /dashboard-zendure/releasenotes
-          - type: markdown
-            content: >-
-              <ha-alert alert-type="info">Helptekst</ha-alert>Hier kun je zien
-              welke package versie je gebruikt en wat de nieuwste versie is op
-              GitHub. Ook zie je meteen hoeveel problemen er openstaan en kun je
-              hier op doorklikken naar GitHub.
-            text_only: true
-            visibility:
-              - condition: state
-                entity: input_boolean.help_tonen_op_dashboard
-                state: 'on'
           - type: entities
             entities:
               - entity: sensor.zendure_2400_ac_configuratie_versie
-                name: Versie in gebruik
-              - entity: sensor.github_zendure_ha_zensdk_gielz1986
-                name: Versie op GitHub
+                name: Versie
               - entity: sensor.zendure_ha_zensdk_github_releasecheck
                 name: Releasecheck
           - type: markdown
             content: >
-              &nbsp;&nbsp;[![Open
-              Issues](https://img.shields.io/github/issues/Gielz1986/Zendure-HA-zenSDK?style=for-the-badge&label=Openstaande%20Problemen&labelColor=029c7b&color=0d2e2b)](https://github.com/Gielz1986/Zendure-HA-zenSDK/issues)
+              &nbsp;&nbsp;[![Release](https://img.shields.io/github/v/release/Gielz1986/Zendure-HA-zenSDK?style=for-the-badge)](https://github.com/Gielz1986/Zendure-HA-zenSDK/releases) 
+              [![Open
+              Issues](https://img.shields.io/github/issues/Gielz1986/Zendure-HA-zenSDK?style=for-the-badge)](https://github.com/Gielz1986/Zendure-HA-zenSDK/issues)
             grid_options:
               columns: 12
               rows: auto
@@ -2004,7 +1836,7 @@ views:
     cards: []
     dense_section_placement: false
   - type: sections
-    max_columns: 2
+    max_columns: 4
     subview: true
     path: releasenotes
     title: Releasenotes
@@ -2015,10 +1847,9 @@ views:
           - type: markdown
             content: >
               {{ state_attr('sensor.github_zendure_ha_zensdk_gielz1986',
-              'body')}}
+              'body')}}"
             text_only: true
             grid_options:
-              columns: 24
+              columns: 21
               rows: auto
         column_span: 2
-    cards: []
