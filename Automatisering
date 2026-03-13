@@ -689,14 +689,33 @@ actions:
                   - condition: state
                     entity_id: input_select.zendure_2400_ac_modus_selecteren
                     state: Alleen slim ontladen
-                  - condition: state
-                    entity_id: input_select.zendure_2400_ac_modus_selecteren
-                    state:
-                      - Dynamisch NOM
-                  - condition: state
-                    entity_id: input_select.zendure_2400_ac_modus_selecteren
-                    state:
-                      - Dynamisch Handelen + NOM
+                  - condition: and
+                    conditions:
+                      - alias: >-
+                          zijn er de komende 12 uren NIET tenminste twee duren
+                          uren achter elkaar?
+                        condition: template
+                        value_template: |2-
+                            {% set data = state_attr('sensor.dynamisch_duurste_periode', 'raw_today') %}
+                            {% set ns = namespace(consecutive=0, found=false, count=0) %}
+                            {% for entry in data %}
+                              {% if as_datetime(entry.start) >= now().replace(minute=0, second=0, microsecond=0) and ns.count < 12 %}
+                                {% set ns.count = ns.count + 1 %}
+                                {% if entry.duur == 'ja' %}
+                                  {% set ns.consecutive = ns.consecutive + 1 %}
+                                {% else %}
+                                  {% set ns.consecutive = 0 %}
+                                {% endif %}
+                                {% if ns.consecutive >= 2 %}
+                                  {% set ns.found = true %}
+                                {% endif %}
+                              {% endif %}
+                            {% endfor %}
+                            {{ not ns.found }}
+                      - condition: state
+                        entity_id: input_select.zendure_2400_ac_modus_selecteren
+                        state:
+                          - Dynamisch Handelen + NOM
               - condition: and
                 conditions:
                   - condition: state
@@ -715,6 +734,17 @@ actions:
                       {{ states('sensor.dynamisch_spread_indicatie') | float >=
                       states('input_number.dynamisch_minimale_spread') | float
                       }}
+              - condition: and
+                conditions:
+                  - condition: state
+                    entity_id: input_select.zendure_2400_ac_modus_selecteren
+                    state:
+                      - Dynamisch NOM
+                  - condition: state
+                    entity_id: sensor.dynamisch_goedkoopste_periode
+                    state:
+                      - Nee
+                alias: Bij Dynamisch NOM alleen ontladen bij niet-goedkope periodes
           - condition: and
             conditions:
               - condition: state
